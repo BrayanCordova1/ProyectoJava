@@ -1,0 +1,310 @@
+package gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
+
+public class DlgMantDocentes extends JFrame implements ActionListener {
+
+	/**
+	 * 
+	 */
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtNombres;
+	private JTextField txtApellidos;
+	private JTextField txtTelefono;
+	private JTextField txtDNI;
+	private JTextField txtCodigo;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cboBotones;
+	private JButton btnProcesar;
+	private JButton btnListar;
+	private JTextArea txtS;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cboCurso;
+	private JLabel lblProcesar;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DlgMantDocentes frame = new DlgMantDocentes();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public DlgMantDocentes() {
+		setTitle("Mantenimiento Docentes");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 641, 454);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNombres = new JLabel("Nombres:");
+		lblNombres.setBounds(10, 15, 58, 14);
+		contentPane.add(lblNombres);
+		
+		txtNombres = new JTextField();
+		txtNombres.setBackground(Color.GREEN);
+		txtNombres.setForeground(Color.BLACK);
+		txtNombres.setBounds(78, 12, 119, 20);
+		contentPane.add(txtNombres);
+		txtNombres.setColumns(10);
+		
+		JLabel lblApellidos = new JLabel("Apellidos:");
+		lblApellidos.setBounds(207, 15, 58, 14);
+		contentPane.add(lblApellidos);
+		
+		txtApellidos = new JTextField();
+		txtApellidos.setBackground(Color.GREEN);
+		txtApellidos.setBounds(275, 12, 86, 20);
+		contentPane.add(txtApellidos);
+		txtApellidos.setColumns(10);
+		
+		JLabel lblCurso = new JLabel("Curso :");
+		lblCurso.setBounds(10, 49, 58, 14);
+		contentPane.add(lblCurso);
+		
+		JLabel lblTelefono = new JLabel("Teléfono:");
+		lblTelefono.setBounds(207, 49, 58, 14);
+		contentPane.add(lblTelefono);
+		
+		txtTelefono = new JTextField();
+		txtTelefono.setBackground(Color.GREEN);
+		txtTelefono.setBounds(275, 43, 86, 20);
+		contentPane.add(txtTelefono);
+		txtTelefono.setColumns(10);
+		
+		txtDNI = new JTextField();
+		txtDNI.setBackground(Color.GREEN);
+		txtDNI.setBounds(497, 12, 112, 20);
+		contentPane.add(txtDNI);
+		txtDNI.setColumns(10);
+		
+		JLabel lblDNI = new JLabel("DNI:");
+		lblDNI.setBounds(379, 15, 108, 14);
+		contentPane.add(lblDNI);
+		
+		JLabel lblCodigo = new JLabel("Código del docente:");
+		lblCodigo.setBounds(379, 49, 120, 14);
+		contentPane.add(lblCodigo);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setBackground(Color.RED);
+		txtCodigo.setEditable(false);
+		txtCodigo.setBounds(497, 46, 112, 20);
+		contentPane.add(txtCodigo);
+		txtCodigo.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 111, 599, 293);
+		contentPane.add(scrollPane);
+		
+		txtS = new JTextArea();
+		scrollPane.setRowHeaderView(txtS);
+		
+		cboBotones = new JComboBox();
+		cboBotones.addActionListener(this);
+		cboBotones.setModel(new DefaultComboBoxModel(new String[] {"Ingreso", "Modificación", "Consulta", "Eliminación"}));
+		cboBotones.setBounds(78, 80, 117, 20);
+		contentPane.add(cboBotones);
+		
+		btnProcesar = new JButton("Procesar");
+		btnProcesar.addActionListener(this);
+		btnProcesar.setBounds(207, 79, 108, 23);
+		contentPane.add(btnProcesar);
+		
+		btnListar = new JButton("Listar docentes");
+		btnListar.addActionListener(this);
+		btnListar.setBounds(325, 79, 108, 23);
+		contentPane.add(btnListar);
+		
+		cboCurso = new JComboBox();
+		cboCurso.setBackground(Color.GREEN);
+		cboCurso.setModel(new DefaultComboBoxModel(new String[] {"Matematicas", "Comunicacion", "Ciencias"}));
+		cboCurso.setBounds(78, 43, 117, 22);
+		contentPane.add(cboCurso);
+		
+		lblProcesar = new JLabel("Procesar :");
+		lblProcesar.setBounds(10, 83, 75, 14);
+		contentPane.add(lblProcesar);
+	}
+	
+	public static void mensaje(String mensaje) {
+        JFrame frame = new JFrame("Mensaje");
+        JOptionPane.showMessageDialog(frame, mensaje);
+    }
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnListar) {
+			actionPerformedBtnListar(e);
+		}
+		if (e.getSource() == btnProcesar) {
+			actionPerformedBtnProcesar(e);
+		}
+		if (e.getSource() == cboBotones) {
+			actionPerformedCboBotones(e);
+		}
+	}
+	
+	protected void actionPerformedCboBotones(ActionEvent e) {
+		switch(cboBotones.getSelectedIndex()){
+			case 0:
+				txtNombres.setEditable(true);
+				txtNombres.setBackground(Color.GREEN);
+				cboCurso.setEditable(true);
+				cboCurso.setBackground(Color.GREEN);
+				txtDNI.setEditable(true);
+				txtDNI.setBackground(Color.GREEN);
+				txtApellidos.setEditable(true);
+				txtApellidos.setBackground(Color.GREEN);
+				txtTelefono.setEditable(true);
+				txtTelefono.setBackground(Color.GREEN);
+				txtCodigo.setEditable(false);
+				txtCodigo.setBackground(Color.RED);
+				break;
+			case 1:
+				txtNombres.setEditable(false);
+				txtNombres.setBackground(Color.RED);
+				cboCurso.setEditable(false);
+				cboCurso.setBackground(Color.RED);
+				txtDNI.setEditable(false);
+				txtDNI.setBackground(Color.RED);
+				txtApellidos.setEditable(false);
+				txtApellidos.setBackground(Color.RED);
+				txtTelefono.setEditable(false);
+				txtTelefono.setBackground(Color.RED);
+				txtCodigo.setEditable(true);
+				txtCodigo.setBackground(Color.GREEN);
+				break;
+			case 2:
+				txtNombres.setEditable(false);
+				txtNombres.setBackground(Color.RED);
+				cboCurso.setEditable(false);
+				cboCurso.setBackground(Color.RED);
+				txtDNI.setEditable(false);
+				txtDNI.setBackground(Color.RED);
+				txtApellidos.setEditable(false);
+				txtApellidos.setBackground(Color.RED);
+				txtTelefono.setEditable(false);
+				txtTelefono.setBackground(Color.RED);
+				txtCodigo.setEditable(true);
+				txtCodigo.setBackground(Color.GREEN);
+				break;
+			case 3:
+				txtNombres.setEditable(false);
+				txtNombres.setBackground(Color.RED);
+				cboCurso.setEditable(false);
+				cboCurso.setBackground(Color.RED);
+				txtDNI.setEditable(false);
+				txtDNI.setBackground(Color.RED);
+				txtApellidos.setEditable(false);
+				txtApellidos.setBackground(Color.RED);
+				txtTelefono.setEditable(false);
+				txtTelefono.setBackground(Color.RED);
+				txtCodigo.setEditable(true);
+				txtCodigo.setBackground(Color.GREEN);
+				break;
+			case 4:
+				txtNombres.setEditable(false);
+				txtNombres.setBackground(Color.RED);
+				cboCurso.setEditable(false);
+				cboCurso.setBackground(Color.RED);
+				txtDNI.setEditable(false);
+				txtDNI.setBackground(Color.RED);
+				txtApellidos.setEditable(false);
+				txtApellidos.setBackground(Color.RED);
+				txtTelefono.setEditable(false);
+				txtTelefono.setBackground(Color.RED);
+				txtCodigo.setEditable(false);
+				txtCodigo.setBackground(Color.RED);
+				break;
+		}
+	}
+	
+	protected void actionPerformedBtnProcesar(ActionEvent e) {
+		switch(cboBotones.getSelectedIndex()){
+			case 0:
+			    String nombres = txtNombres.getText();
+			    String apellidos = txtApellidos.getText();
+			    String telefono = txtTelefono.getText();
+			    String dni = txtDNI.getText();
+			    
+			    try {
+			        if(nombres.length() <= 0) {
+			            mensaje("Ingresa los nombres");
+			        } else if(apellidos.length() <= 0) {
+			            mensaje("Ingrese los apellidos");
+			        } else if(telefono.length() <= 0) {
+			            mensaje("Ingrese el teléfono");
+			        } else if(dni.length() <= 0) {
+			            mensaje("Ingrese un DNI");
+			        } else {
+			            mensaje("Hola");
+			        }
+			    } catch (Exception e1) {
+			        System.out.println("Error: " + e1.getMessage());
+			    }
+				break;
+			case 1:
+			    String codigoText = txtCodigo.getText();
+
+			    if (codigoText.isEmpty()) {
+			        mensaje("Ingresa un código válido");
+			        return;
+			    }
+				break;
+			case 2:
+			    String codigoTexto = txtCodigo.getText();
+			    
+			    if (codigoTexto.length() == 0) {
+			        mensaje("Ingresa un código de docente");
+			        return;
+			    }
+			    
+				break;
+			case 3:
+				String codigoText1 = txtCodigo.getText();
+			    
+			    if (codigoText1.isEmpty()) {
+			        mensaje("Ingresa un código válido");
+			        return;
+			    }
+			    
+				break;
+		}
+	}
+	
+	protected void actionPerformedBtnListar(ActionEvent e) {
+	    
+	    }
+}

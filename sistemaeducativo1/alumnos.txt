@@ -1,0 +1,6 @@
+Codigo: 1
+Nombre: asd
+Apellidos: asd
+DNI: asdasdas
+Teléfono: asdasdasd
+

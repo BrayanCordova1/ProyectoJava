@@ -1,0 +1,187 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+public class DlgMantAlumnos extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtNombres;
+	private JTextField txtApellidos;
+	private JTextField txtTelefono;
+	private JTextField txtField;
+	private JTextField txtCodigo;
+	private JTextArea txtS;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cboProceso;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DlgMantAlumnos frame = new DlgMantAlumnos();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public DlgMantAlumnos() {
+		setTitle("Mantenimiento Alumnos");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 575, 420);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnListado = new JButton("Listar Alumnos");
+		btnListado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnListado_actionPerformed(e);
+			}
+		});
+		btnListado.setBounds(297, 77, 149, 23);
+		contentPane.add(btnListado);
+		
+		JLabel lblNombres = new JLabel("Nombres:");
+		lblNombres.setBounds(10, 15, 58, 14);
+		contentPane.add(lblNombres);
+		
+		txtNombres = new JTextField();
+		txtNombres.setBackground(Color.GREEN);
+		txtNombres.setForeground(Color.BLACK);
+		txtNombres.setBounds(76, 12, 86, 20);
+		contentPane.add(txtNombres);
+		txtNombres.setColumns(10);
+		
+		JLabel lblApellidos = new JLabel("Apellidos:");
+		lblApellidos.setBounds(172, 15, 58, 14);
+		contentPane.add(lblApellidos);
+		
+		txtApellidos = new JTextField();
+		txtApellidos.setBackground(Color.GREEN);
+		txtApellidos.setForeground(Color.BLACK);
+		txtApellidos.setBounds(240, 12, 86, 20);
+		contentPane.add(txtApellidos);
+		txtApellidos.setColumns(10);
+		
+		JLabel lblTelefono = new JLabel("Teléfono:");
+		lblTelefono.setBounds(172, 49, 58, 14);
+		contentPane.add(lblTelefono);
+		
+		txtTelefono = new JTextField();
+		txtTelefono.setBackground(Color.GREEN);
+		txtTelefono.setForeground(Color.BLACK);
+		txtTelefono.setBounds(240, 46, 86, 20);
+		contentPane.add(txtTelefono);
+		txtTelefono.setColumns(10);
+		
+		txtField = new JTextField();
+		txtField.setBackground(Color.GREEN);
+		txtField.setForeground(Color.BLACK);
+		txtField.setBounds(76, 46, 86, 20);
+		contentPane.add(txtField);
+		txtField.setColumns(10);
+		
+		JLabel lblDNI = new JLabel("DNI:");
+		lblDNI.setBounds(10, 49, 58, 14);
+		contentPane.add(lblDNI);
+		
+		JLabel lblCodigo = new JLabel("Código de alumno :");
+		lblCodigo.setBounds(338, 15, 108, 14);
+		contentPane.add(lblCodigo);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setBackground(Color.RED);
+		txtCodigo.setForeground(Color.BLACK);
+		txtCodigo.setBounds(463, 12, 86, 20);
+		contentPane.add(txtCodigo);
+		txtCodigo.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 113, 539, 257);
+		contentPane.add(scrollPane);
+		
+		txtS = new JTextArea();
+		scrollPane.setViewportView(txtS);
+		
+		JLabel lblProceso = new JLabel("Proceso :");
+		lblProceso.setBounds(10, 81, 71, 14);
+		contentPane.add(lblProceso);
+		
+		cboProceso = new JComboBox();
+		cboProceso.setModel(new DefaultComboBoxModel(new String[] {"Agregar", "Modificar", "Eliminar", "Consultar"}));
+		cboProceso.setBounds(76, 77, 112, 22);
+		contentPane.add(cboProceso);
+		
+		JButton btnProcesar = new JButton("Procesar");
+		btnProcesar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnProcesar_actionPerformed(e);
+			}
+		});
+		btnProcesar.setBounds(198, 77, 89, 23);
+		contentPane.add(btnProcesar);
+	}
+	
+	public static void mensaje(String mensaje) {
+        JFrame frame = new JFrame("Mensaje");
+        JOptionPane.showMessageDialog(frame, mensaje);
+    }
+	protected void do_btnListado_actionPerformed(ActionEvent e) {
+		try {
+			BufferedReader br;
+			br = new BufferedReader(new FileReader("alumnos.txt"));	
+			String linea = br.readLine();
+			txtS.setText(linea);
+			br.close();
+		}
+		catch(IOException e1) {
+			txtS.setText("Primero debes crear un alumno");
+		}
+	}
+	protected void do_btnProcesar_actionPerformed(ActionEvent e) {
+		try {
+			PrintWriter alumnos;
+			alumnos = new PrintWriter(new FileWriter("alumnos.txt"));
+			alumnos.println("Hola");
+			alumnos.close();
+		}catch(IOException e1) {
+			System.out.println("Error al crear el archivo: " + e1.getMessage());
+		}
+	}
+}

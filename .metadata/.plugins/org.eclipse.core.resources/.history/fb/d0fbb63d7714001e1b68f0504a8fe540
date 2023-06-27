@@ -1,0 +1,216 @@
+package datos;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DatasClases {
+	   private static List<Docente> listaDocentes = new ArrayList<>();
+	   
+	   public static List<Docente> getListaDocentes() {
+	       return listaDocentes;
+	   }
+	   
+	   public static void agregarDocente(Docente docente) {
+	       listaDocentes.add(docente);
+	   }
+	 
+	}
+
+class Docente {
+	
+    private static int ultimoCodigoDocente = 1000;
+    
+    private int codigoDocente;
+    private String nombres;
+    private String apellidos;
+    private String telefono;
+    private String dni;
+    
+    public Docente(String nombres, String apellidos, String telefono, String dni) {
+        this.codigoDocente = generarCodigoDocente();
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.dni = dni;
+    }
+    
+    private static int generarCodigoDocente() {
+        ultimoCodigoDocente++;
+        return ultimoCodigoDocente;
+    }
+    
+    public int getCodigoDocente() {
+        return codigoDocente;
+    }
+    
+    public String getNombres() {
+        return nombres;
+    }
+    
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+    
+    public String getApellidos() {
+        return apellidos;
+    }
+    
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+    
+    
+    public String getTelefono() {
+        return telefono;
+    }
+    
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    public String getDni() {
+        return dni;
+    }
+    
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+}
+
+class Alumno {
+    private static int ultimoCodigoAlumno = 2000;
+    
+    private int codigoAlumno;
+    private String nombres;
+    private String apellidos;
+    private String telefono;
+    private String dni;
+    
+    public Alumno(String nombres, String apellidos, String telefono, String dni) {
+        this.codigoAlumno = generarCodigoAlumno();
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.dni = dni;
+    }
+    
+    private static int generarCodigoAlumno() {
+        ultimoCodigoAlumno++;
+        return ultimoCodigoAlumno;
+    }
+    
+    public int getCodigoAlumno() {
+        return codigoAlumno;
+    }
+    
+    public String getNombres() {
+        return nombres;
+    }
+    
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+    
+    public String getApellidos() {
+        return apellidos;
+    }
+    
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+    
+    public String getTelefono() {
+        return telefono;
+    }
+    
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    public String getDni() {
+        return dni;
+    }
+    
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+}
+
+class Curso {
+    private static int ultimoCodigoCurso = 3000;
+    
+    private int codigoCurso;
+    private int codigoDocente;
+    private String nombre;
+    private int horas;
+    
+    public Curso(int codigoDocente, String nombre, int horas) {
+        this.codigoCurso = generarCodigoCurso();
+        this.codigoDocente = codigoDocente;
+        this.nombre = nombre;
+        this.horas = horas;
+    }
+    
+    private static int generarCodigoCurso() {
+        ultimoCodigoCurso++;
+        return ultimoCodigoCurso;
+    }
+    
+    public int getCodigoCurso() {
+        return codigoCurso;
+    }
+    
+    public int getCodigoDocente() {
+        return codigoDocente;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public int getHoras() {
+        return horas;
+    }
+    
+    public void setHoras(int horas) {
+        this.horas = horas;
+    }
+}
+
+class Matricula {
+    private static int ultimoCodigoMatricula = 4000;
+    
+    private int codigoMatricula;
+    private int codigoAlumno;
+    private int codigoCurso;
+    
+    public Matricula(int codigoAlumno, int codigoCurso) {
+        this.codigoMatricula = generarCodigoMatricula();
+        this.codigoAlumno = codigoAlumno;
+        this.codigoCurso = codigoCurso;
+    }
+    
+    private static int generarCodigoMatricula() {
+        ultimoCodigoMatricula++;
+        return ultimoCodigoMatricula;
+    }
+    
+    public int getCodigoMatricula() {
+        return codigoMatricula;
+    }
+    
+    public int getCodigoAlumno() {
+        return codigoAlumno;
+    }
+    
+    public int getCodigoCurso() {
+        return codigoCurso;
+    }
+}
+
+
+

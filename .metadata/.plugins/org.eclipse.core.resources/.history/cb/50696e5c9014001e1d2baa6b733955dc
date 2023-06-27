@@ -1,0 +1,12 @@
+package utilidades;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class mensaje {
+	
+	public mensaje(String mensaje) {
+        JFrame frame = new JFrame("Mensaje");
+        JOptionPane.showMessageDialog(frame, mensaje);
+    }
+}
